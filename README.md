@@ -19,13 +19,13 @@ Your App Link [Here](https://end-to-end-rag-document-q-a-with-groq-and-gemma2-fj
 ![image](https://github.com/user-attachments/assets/e00a8d06-7b3f-4cc7-899a-265fcde825f7)
 
 🚀 Features
-- Complete End-to-End Solution: From document ingestion to answer generation
-- PDF Document Processing: Automatic splitting and chunking of PDFs
-- Vector Embeddings & Semantic Search: Finds relevant sections of your documents
-- Integration with Groq's Gemma2: Powerful large language model for accurate responses
-- User-Friendly Interface: Streamlit-based UI for easy interaction
-- Expandable Document Similarity Results: Inspect the sources used for each answer
-- Error Handling & Logging: Better user experience and debugging
+  - Complete End-to-End Solution: From document ingestion to answer generation
+  - PDF Document Processing: Automatic splitting and chunking of PDFs
+  - Vector Embeddings & Semantic Search: Finds relevant sections of your documents
+  - Integration with Groq's Gemma2: Powerful large language model for accurate responses
+  - User-Friendly Interface: Streamlit-based UI for easy interaction
+  - Expandable Document Similarity Results: Inspect the sources used for each answer
+  - Error Handling & Logging: Better user experience and debugging
 
   📂 Repository Structure
   ``` bash
@@ -78,43 +78,39 @@ Your App Link [Here](https://end-to-end-rag-document-q-a-with-groq-and-gemma2-fj
         streamlit run app.py
       ```
     3. Interact with the App
-    - Upload your PDF(s) using the file uploader at the top of the interface.
-    - Once your PDF file(s) have been successfully uploaded, click “Document Embedding” to index your research papers.
-    - After embedding is complete, type your question in the “Ask questions about the content of your papers” text box.
+      - Upload your PDF(s) using the file uploader at the top of the interface.
+      - Once your PDF file(s) have been successfully uploaded, click “Document Embedding” to index your research papers.
+      - After embedding is complete, type your question in the “Ask questions about the content of your papers” text box.
     The app will generate an answer and display the relevant sources used to derive that answer.
 
   🚀 Deploying to Streamlit Cloud
     1. Push your code to a public GitHub repository (be sure to ignore or exclude .env).
     2. Go to Streamlit Cloud and create a new app:
-    - Select your GitHub repo and branch.
-    - Enter app.py as the main file.
+      - Select your GitHub repo and branch.
+      - Enter app.py as the main file.
     3. Add your API keys as secrets in the Streamlit Cloud dashboard:
-    - GROQ_API_KEY
-    - OPENAI_API_KEY
+      - GROQ_API_KEY
+      - OPENAI_API_KEY
     4. Deploy and share your app link!
 
   🧩 How It Works
     1. Document Processing
-    
-    - PDF files are loaded and split into text chunks.
-    - Each chunk is embedded using OpenAI Embeddings and stored in a FAISS vector database.
+      - PDF files are loaded and split into text chunks.
+      - Each chunk is embedded using OpenAI Embeddings and stored in a FAISS vector database.
     2. Query Processing
-    
-    - The user’s question is embedded into the same vector space.
+      - The user’s question is embedded into the same vector space.
     3. Retrieval
-    
-    - The app searches the FAISS index for the most relevant chunks.
+      - The app searches the FAISS index for the most relevant chunks.
     4. Generation
-    
-    - Groq’s Gemma2 model generates a context-aware answer using the retrieved document chunks.
+      - Groq’s Gemma2 model generates a context-aware answer using the retrieved document chunks.
 
   🔧 Technologies Used
-    - [Streamlit](https://streamlit.io/) - Web interface and easy deployment
-    - [LangChain](https://www.langchain.com/) - Orchestrating the RAG pipeline
-    - [FAISS](https://github.com/facebookresearch/faiss) - Vector similarity search
-    - [Groq](https://groq.com/) - Fast LLM inference for Gemma2
-    - Gemma2 - Underlying language model
-    - [OpenAI Embeddings](https://platform.openai.com/docs/guides/embeddings) - For document vectorization
+      - [Streamlit](https://streamlit.io/) - Web interface and easy deployment
+      - [LangChain](https://www.langchain.com/) - Orchestrating the RAG pipeline
+      - [FAISS](https://github.com/facebookresearch/faiss) - Vector similarity search
+      - [Groq](https://groq.com/) - Fast LLM inference for Gemma2
+      - Gemma2 - Underlying language model
+      - [OpenAI Embeddings](https://platform.openai.com/docs/guides/embeddings) - For document vectorization
 
     📦 Requirements
     See requirements.txt for a complete list of dependencies.
@@ -127,8 +123,8 @@ Your App Link [Here](https://end-to-end-rag-document-q-a-with-groq-and-gemma2-fj
     This project is licensed under the MIT License - see the LICENSE file for details.
     
     🙏 Acknowledgements
-    Groq for providing fast LLM inference
-    Gemma2 for powering the question-answering capabilities
-    LangChain for the RAG framework
-    Streamlit for the user-friendly web application framework
+      Groq for providing fast LLM inference
+      Gemma2 for powering the question-answering capabilities
+      LangChain for the RAG framework
+      Streamlit for the user-friendly web application framework
           
