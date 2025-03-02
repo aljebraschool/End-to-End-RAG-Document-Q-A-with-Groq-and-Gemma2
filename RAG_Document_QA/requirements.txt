@@ -6,5 +6,5 @@ langchain_core
 streamlit
 langchain-groq
 pypdf
-faiss-gpu
+faiss-cpu
 langchain_text_splitters
