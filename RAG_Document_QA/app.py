@@ -42,6 +42,10 @@ prompt = ChatPromptTemplate.from_template(
     """
 )
 
+#Ensure the research_paper directory exit which will be used to model to answer question
+if not os.path.exits('research_papers'):
+    os.markdirs("research_papers")
+
 def create_vector_embedding():
     if "vector" not in st.session_state:
         try:
@@ -51,7 +55,7 @@ def create_vector_embedding():
                 st.session_state.embeddings = OpenAIEmbeddings()
                 
                 # Check if directory exists
-                if not os.path.exists("research_papers"):
+                if not os.path.exists("research_papers") or len(os.listdir("research_papars")) == 0:
                     st.error("Directory 'research_papers' not found. Please create this directory and add your PDF files.")
                     return False
                 
@@ -79,17 +83,37 @@ def create_vector_embedding():
 
 st.title("RAG Document q&A with Groq and Gemma2")
 
-# First explain what to do with clear instructions
-st.write("1. Click 'Document Embedding' to index your research papers")
-st.write("2. Then ask questions about the content of your papers")
+#add file uploader 
+uploaded_files = st.file_uploader("upload your research papers (PDF)", type = 'pdf', accept_multiple_files = True)
 
+if uploaded_files:
+    # Clear existing files to avoid duplicates
+    import shutil
+    if os.path.exits("research_papers"):
+        shutil.rmtree("research_papers") #remove directory
+    os.makedirs("research_papers") #make another directory
+
+    for file in uploaded_files:
+        # Save uploaded file to research_papers directory
+        with open(os.path.join("research_papers", file.name), "wb") as f:
+            f.write(file.getbuffer())
+    st.success(f"Uploaded {len(uploaded_files)} PDF files successfully!")
+
+# First explain what to do with clear instructions
+st.write("1. Upload your PDF research papers using the file uploader above")
+st.write("2. Click 'Document Embedding' to index your research papers")
+st.write("3. Then ask questions about the content of your papers")
+
+# Document embedding button
 if st.button("Document Embedding"):
-    #call the function to create embedding for the document
-    success = create_vector_embedding()
-    if success:
-        st.success("Vector database is ready! You can now ask questions about your documents.")
+    if not uploaded_files and len(os.listdir("research_papers")) == 0:
+        st.error("Please upload PDF files first before creating embeddings.")
     else:
-        st.write("Failed to create vector database, please cheack the error message above")
+        success = create_vector_embedding()
+        if success:
+            st.success("Vector database is ready! You can now ask questions about your documents.")
+        else:
+            st.error("Failed to create vector database. Please check the error messages above.")
 
 user_prompt = st.text_input("What is the question you want to ask from the research paper?")
 
