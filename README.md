@@ -106,26 +106,26 @@ Create a .env file in the project’s root directory with the following variable
     - Groq’s Gemma2 model generates a context-aware answer using the retrieved document chunks.
 
 🔧 Technologies Used
-- [Streamlit](https://streamlit.io/) - Web interface and easy deployment
-- [LangChain](https://www.langchain.com/) - Orchestrating the RAG pipeline
-- [FAISS](https://github.com/facebookresearch/faiss) - Vector similarity search
-- [Groq](https://groq.com/) - Fast LLM inference for Gemma2
-- Gemma2 - Underlying language model
-- [OpenAI Embeddings](https://platform.openai.com/docs/guides/embeddings) - For document vectorization
+  - [Streamlit](https://streamlit.io/) - Web interface and easy deployment
+  - [LangChain](https://www.langchain.com/) - Orchestrating the RAG pipeline
+  - [FAISS](https://github.com/facebookresearch/faiss) - Vector similarity search
+  - [Groq](https://groq.com/) - Fast LLM inference for Gemma2
+  - Gemma2 - Underlying language model
+  - [OpenAI Embeddings](https://platform.openai.com/docs/guides/embeddings) - For document vectorization
 
 📦 Requirements
-  See requirements.txt for a complete list of dependencies.
+  - See requirements.txt for a complete list of dependencies.
     
 🤝 Contributing
-    Contributions, issues, and feature requests are welcome!
-    Feel free to check the issues page or submit a pull request.
+    - Contributions, issues, and feature requests are welcome!
+    - Feel free to check the issues page or submit a pull request.
 
 📄 License
-    This project is licensed under the MIT License - see the LICENSE file for details.
+    - This project is licensed under the MIT License - see the LICENSE file for details.
     
 🙏 Acknowledgements
-    Groq for providing fast LLM inference
-    Gemma2 for powering the question-answering capabilities
-    LangChain for the RAG framework
-    Streamlit for the user-friendly web application framework
+    - Groq for providing fast LLM inference
+    - Gemma2 for powering the question-answering capabilities
+    - LangChain for the RAG framework
+    - Streamlit for the user-friendly web application framework
           
