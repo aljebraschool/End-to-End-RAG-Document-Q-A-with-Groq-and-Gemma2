@@ -28,26 +28,31 @@ Your App Link [Here](https://end-to-end-rag-document-q-a-with-groq-and-gemma2-fj
   - Error Handling & Logging: Better user experience and debugging
 
 📂 Repository Structure
-  ``` bash
+  ```bash
     End-to-End-RAG-Document-QA-with-Groq-and-Gemma2
     ├── research_papers/          # Directory where PDFs can be placed
     ├── app.py                    # Main Streamlit app
     ├── requirements.txt          # Python dependencies
     └── README.md                 # This file
+
   ```
 
 🛠️ Installation
 1. Clone the repository:
     ``` bash
+ 
       git clone https://github.com/YOUR-USERNAME/End-to-End-RAG-Document-QA-with-Groq-and-Gemma2.git
       cd End-to-End-RAG-Document-QA-with-Groq-and-Gemma2
+    
     ```
 
-2. Install required packages:
+3. Install required packages:
    ``` bash
-        pip install -r requirements.txt 
+   
+        pip install -r requirements.txt
+   
        ```
-3. (Optional) Create and activate a virtual environment:
+4. (Optional) Create and activate a virtual environment:
    
        ``` bash
         python -m venv venv
