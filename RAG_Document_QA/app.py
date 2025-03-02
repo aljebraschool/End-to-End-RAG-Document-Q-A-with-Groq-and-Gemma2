@@ -43,7 +43,7 @@ prompt = ChatPromptTemplate.from_template(
 )
 
 #Ensure the research_paper directory exit which will be used to model to answer question
-if not os.path.exits('research_papers'):
+if not os.path.exists('research_papers'):
     os.markdirs("research_papers")
 
 def create_vector_embedding():
@@ -89,7 +89,7 @@ uploaded_files = st.file_uploader("upload your research papers (PDF)", type = 'p
 if uploaded_files:
     # Clear existing files to avoid duplicates
     import shutil
-    if os.path.exits("research_papers"):
+    if os.path.exists("research_papers"):
         shutil.rmtree("research_papers") #remove directory
     os.makedirs("research_papers") #make another directory
 
