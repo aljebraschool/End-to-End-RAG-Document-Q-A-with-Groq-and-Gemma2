@@ -55,7 +55,7 @@ def create_vector_embedding():
                 st.session_state.embeddings = OpenAIEmbeddings()
                 
                 # Check if directory exists
-                if not os.path.exists("research_papers") or len(os.listdir("research_papars")) == 0:
+                if not os.path.exists("research_papers") or len(os.listdir("research_papers")) == 0:
                     st.error("Directory 'research_papers' not found. Please create this directory and add your PDF files.")
                     return False
                 
