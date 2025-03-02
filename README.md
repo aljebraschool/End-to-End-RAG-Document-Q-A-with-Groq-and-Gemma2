@@ -109,12 +109,12 @@ Your App Link [Here](https://end-to-end-rag-document-q-a-with-groq-and-gemma2-fj
     - Groq’s Gemma2 model generates a context-aware answer using the retrieved document chunks.
 
   🔧 Technologies Used
-    [Streamlit](https://streamlit.io/) - Web interface and easy deployment
-    [LangChain](https://www.langchain.com/) - Orchestrating the RAG pipeline
-    [FAISS](https://github.com/facebookresearch/faiss) - Vector similarity search
-    [Groq](https://groq.com/) - Fast LLM inference for Gemma2
-    Gemma2 - Underlying language model
-    [OpenAI Embeddings](https://platform.openai.com/docs/guides/embeddings) - For document vectorization
+    - [Streamlit](https://streamlit.io/) - Web interface and easy deployment
+    - [LangChain](https://www.langchain.com/) - Orchestrating the RAG pipeline
+    - [FAISS](https://github.com/facebookresearch/faiss) - Vector similarity search
+    - [Groq](https://groq.com/) - Fast LLM inference for Gemma2
+    - Gemma2 - Underlying language model
+    - [OpenAI Embeddings](https://platform.openai.com/docs/guides/embeddings) - For document vectorization
 
     📦 Requirements
     See requirements.txt for a complete list of dependencies.
