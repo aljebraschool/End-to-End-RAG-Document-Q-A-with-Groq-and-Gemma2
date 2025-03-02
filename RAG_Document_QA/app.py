@@ -44,7 +44,7 @@ prompt = ChatPromptTemplate.from_template(
 
 #Ensure the research_paper directory exit which will be used to model to answer question
 if not os.path.exists('research_papers'):
-    os.markdirs("research_papers")
+    os.makedirs("research_papers")
 
 def create_vector_embedding():
     if "vector" not in st.session_state:
