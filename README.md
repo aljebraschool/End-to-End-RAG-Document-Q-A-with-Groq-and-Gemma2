@@ -67,7 +67,6 @@ Your App Link [Here](https://end-to-end-rag-document-q-a-with-groq-and-gemma2-fj
     ``` bash
       GROQ_API_KEY=your_groq_api_key
       OPENAI_API_KEY=your_openai_api_key
-
     ```
     (For Streamlit Cloud deployment, add these as secrets in your Streamlit Cloud dashboard instead.)
 
@@ -105,12 +104,12 @@ Your App Link [Here](https://end-to-end-rag-document-q-a-with-groq-and-gemma2-fj
       - Groq’s Gemma2 model generates a context-aware answer using the retrieved document chunks.
 
   🔧 Technologies Used
-      - [Streamlit](https://streamlit.io/) - Web interface and easy deployment
-      - [LangChain](https://www.langchain.com/) - Orchestrating the RAG pipeline
-      - [FAISS](https://github.com/facebookresearch/faiss) - Vector similarity search
-      - [Groq](https://groq.com/) - Fast LLM inference for Gemma2
-      - Gemma2 - Underlying language model
-      - [OpenAI Embeddings](https://platform.openai.com/docs/guides/embeddings) - For document vectorization
+    - [Streamlit](https://streamlit.io/) - Web interface and easy deployment
+    - [LangChain](https://www.langchain.com/) - Orchestrating the RAG pipeline
+    - [FAISS](https://github.com/facebookresearch/faiss) - Vector similarity search
+    - [Groq](https://groq.com/) - Fast LLM inference for Gemma2
+    - Gemma2 - Underlying language model
+    - [OpenAI Embeddings](https://platform.openai.com/docs/guides/embeddings) - For document vectorization
 
     📦 Requirements
     See requirements.txt for a complete list of dependencies.
@@ -123,8 +122,8 @@ Your App Link [Here](https://end-to-end-rag-document-q-a-with-groq-and-gemma2-fj
     This project is licensed under the MIT License - see the LICENSE file for details.
     
     🙏 Acknowledgements
-      Groq for providing fast LLM inference
-      Gemma2 for powering the question-answering capabilities
-      LangChain for the RAG framework
-      Streamlit for the user-friendly web application framework
+    Groq for providing fast LLM inference
+    Gemma2 for powering the question-answering capabilities
+    LangChain for the RAG framework
+    Streamlit for the user-friendly web application framework
           
