@@ -51,14 +51,14 @@ Your App Link [Here](https://end-to-end-rag-document-q-a-with-groq-and-gemma2-fj
    
         pip install -r requirements.txt
    
-       ```
+   ```
 4. (Optional) Create and activate a virtual environment:
    
-       ``` bash
+   ``` bash
         python -m venv venv
         source venv/bin/activate  # macOS/Linux
         venv\Scripts\activate     # Windows
-       ```
+   ```
 
   🔑 API Keys
   This application requires API keys from:
