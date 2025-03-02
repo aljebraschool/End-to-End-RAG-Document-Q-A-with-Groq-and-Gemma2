@@ -117,15 +117,15 @@ Create a .env file in the project’s root directory with the following variable
   - See requirements.txt for a complete list of dependencies.
     
 🤝 Contributing
-    - Contributions, issues, and feature requests are welcome!
-    - Feel free to check the issues page or submit a pull request.
+  - Contributions, issues, and feature requests are welcome!
+  - Feel free to check the issues page or submit a pull request.
 
 📄 License
-    - This project is licensed under the MIT License - see the LICENSE file for details.
+  - This project is licensed under the MIT License - see the LICENSE file for details.
     
 🙏 Acknowledgements
-    - Groq for providing fast LLM inference
-    - Gemma2 for powering the question-answering capabilities
-    - LangChain for the RAG framework
-    - Streamlit for the user-friendly web application framework
+  - Groq for providing fast LLM inference
+  - Gemma2 for powering the question-answering capabilities
+  - LangChain for the RAG framework
+  - Streamlit for the user-friendly web application framework
           
