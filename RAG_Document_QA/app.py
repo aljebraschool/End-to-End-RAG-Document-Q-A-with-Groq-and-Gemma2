@@ -20,8 +20,6 @@ try:
 
     if not groq_api_key:
         st.error("GROQ api key is not found in your environment variable. Please add it to your .env file")
-
-    openai_key = st.text_input("Enter your openai api key", type = 'password')
     
     
 except Exception as e:
@@ -44,6 +42,9 @@ prompt = ChatPromptTemplate.from_template(
 #Ensure the research_paper directory exit which will be used to model to answer question
 if not os.path.exists('research_papers'):
     os.makedirs("research_papers")
+
+
+openai_key = st.text_input("Enter your openai api key", type = 'password')
 
 def create_vector_embedding():
     if "vector" not in st.session_state:
@@ -84,6 +85,7 @@ def create_vector_embedding():
 
 
 st.title("RAG Document q&A with Groq and Gemma2")
+
 
 #add file uploader 
 uploaded_files = st.file_uploader("upload your research papers (PDF)", type = 'pdf', accept_multiple_files = True)
