@@ -44,7 +44,7 @@ if not os.path.exists('research_papers'):
     os.makedirs("research_papers")
 
 
-openai_key = st.text_input("Enter your openai api key", type = 'password')
+
 
 def create_vector_embedding():
     if "vector" not in st.session_state:
@@ -86,6 +86,7 @@ def create_vector_embedding():
 
 st.title("RAG Document q&A with Groq and Gemma2")
 
+openai_key = st.text_input("Enter your openai api key", type = 'password')
 
 #add file uploader 
 uploaded_files = st.file_uploader("upload your research papers (PDF)", type = 'pdf', accept_multiple_files = True)
