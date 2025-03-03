@@ -48,11 +48,14 @@ if not os.path.exists('research_papers'):
 
 def create_vector_embedding():
     if "vector" not in st.session_state:
+        #before creating embedding check if openai key is provided
+        if not openai_key:
+            st.error("Openai key is required for crreating embeddings")
         try:
             # Show a spinner while processing
             with st.spinner("Creating document embeddings. This may take a minute..."):
                 # Initialize embedding model
-                st.session_state.embeddings = OpenAIEmbeddings()
+                st.session_state.embeddings = OpenAIEmbeddings(api_key = openai_key)
                 
                 # Check if directory exists
                 if not os.path.exists("research_papers") or len(os.listdir("research_papers")) == 0:
@@ -100,12 +103,16 @@ if uploaded_files:
     st.success(f"Uploaded {len(uploaded_files)} PDF files successfully!")
 
 # First explain what to do with clear instructions
-st.write("1. Upload your PDF research papers using the file uploader above")
-st.write("2. Click 'Document Embedding' to index your research papers")
-st.write("3. Then ask questions about the content of your papers")
+st.write("1. Provide your openai key")
+st.write("2. Upload your PDF research papers using the file uploader above")
+st.write("3. Click 'Document Embedding' to index your research papers")
+st.write("4. Then ask questions about the content of your papers")
 
 # Document embedding button
 if st.button("Document Embedding"):
+    if not openai_key:
+        st.error("Please provide your openai key first")
+        
     if not uploaded_files and len(os.listdir("research_papers")) == 0:
         st.error("Please upload PDF files first before creating embeddings.")
     else:
