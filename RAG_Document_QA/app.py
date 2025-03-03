@@ -21,7 +21,7 @@ try:
     if not groq_api_key:
         st.error("GROQ api key is not found in your environment variable. Please add it to your .env file")
 
-    openai_key = os.getenv("OPENAI_API_KEY")
+    openai_key = st.text_input("Enter your openai api key", type = 'password')
     
     if not openai_key:
         st.error("OpenAI key is not found in your environment variable. Please add it to your .env file")
