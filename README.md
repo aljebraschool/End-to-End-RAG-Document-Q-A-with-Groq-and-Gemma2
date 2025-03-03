@@ -2,6 +2,7 @@
 A complete end-to-end Streamlit application that enables question-answering on research papers using Retrieval-Augmented Generation (RAG) powered by Groq's Gemma2 model. This project is ready to deploy on Streamlit Cloud for instant access anywhere.
 
 📝 Description
+
 This application allows users to upload any papers (PDF format) and ask natural language questions about their content. The entire pipeline—from document processing to answer generation—is implemented in a single, easy-to-use Streamlit app.
 
 Using the RAG (Retrieval-Augmented Generation) approach, the system:
