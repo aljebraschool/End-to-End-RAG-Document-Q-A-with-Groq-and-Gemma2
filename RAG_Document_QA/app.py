@@ -23,8 +23,7 @@ try:
 
     openai_key = st.text_input("Enter your openai api key", type = 'password')
     
-    if not openai_key:
-        st.error("OpenAI key is not found in your environment variable. Please add it to your .env file")
+    
 except Exception as e:
     st.error(f'Error loading environment variable str{e}')
 
