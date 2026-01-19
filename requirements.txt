@@ -3,8 +3,9 @@ langchain
 python-dotenv
 langchain_community
 langchain_core
-streamlit
+langchain-classic
 langchain-groq
+streamlit
 pypdf
 faiss-cpu
 langchain_text_splitters
