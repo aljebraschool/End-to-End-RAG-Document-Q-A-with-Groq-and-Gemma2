@@ -1,0 +1,3 @@
+[server]
+# Cap individual upload size (MB) to reduce resource-exhaustion / DoS risk
+maxUploadSize = 25
