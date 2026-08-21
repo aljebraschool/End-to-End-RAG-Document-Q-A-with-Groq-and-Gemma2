@@ -1,6 +1,9 @@
 import streamlit as st
 import os
 import time
+import uuid
+import hmac
+import logging
 from langchain_groq import ChatGroq
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_classic.chains.combine_documents import create_stuff_documents_chain
@@ -13,6 +16,44 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Optional password gate: set APP_PASSWORD to require a shared password before
+# the app can be used. This keeps unauthenticated visitors from running up
+# usage on the paid Groq/OpenAI API keys configured on the server.
+app_password = os.getenv("APP_PASSWORD")
+if app_password:
+    if "authenticated" not in st.session_state:
+        st.session_state.authenticated = False
+
+    if not st.session_state.authenticated:
+        entered_password = st.text_input("Enter app password to continue", type="password")
+        if entered_password:
+            if hmac.compare_digest(entered_password, app_password):
+                st.session_state.authenticated = True
+                st.rerun()
+            else:
+                st.error("Incorrect password")
+        st.stop()
+
+# Give each browser session its own isolated upload/working directory so that
+# concurrent users on a shared deployment cannot see, overwrite, or delete
+# each other's uploaded documents.
+if "session_id" not in st.session_state:
+    st.session_state.session_id = str(uuid.uuid4())
+
+BASE_UPLOAD_DIR = "research_papers"
+SESSION_DIR = os.path.join(BASE_UPLOAD_DIR, st.session_state.session_id)
+
+
+def safe_pdf_filename(name):
+    """Strip any path components and reject anything that isn't a plain .pdf filename."""
+    base_name = os.path.basename(name).strip()
+    if not base_name or not base_name.lower().endswith(".pdf"):
+        return None
+    return base_name
+
 
 # Check for environment variables and provide user-friendly error messages
 try:
@@ -20,15 +61,17 @@ try:
 
     if not groq_api_key:
         st.error("GROQ api key is not found in your environment variable. Please add it to your .env file")
-    
-    
+
+
 except Exception as e:
-    st.error(f'Error loading environment variable str{e}')
+    logger.exception("Error loading environment variable")
+    st.error("Error loading environment variable. Please check the server logs.")
 
 try:
     model = ChatGroq(model = 'llama-3.1-8b-instant')
 except Exception as e:
-    st.error(f"Error initializing Groq model str{e}")
+    logger.exception("Error initializing Groq model")
+    st.error("Error initializing Groq model. Please check your API key.")
     model = None
 
 prompt = ChatPromptTemplate.from_template(
@@ -40,8 +83,8 @@ prompt = ChatPromptTemplate.from_template(
 )
 
 #Ensure the research_paper directory exit which will be used to model to answer question
-if not os.path.exists('research_papers'):
-    os.makedirs("research_papers")
+if not os.path.exists(BASE_UPLOAD_DIR):
+    os.makedirs(BASE_UPLOAD_DIR)
 
 
 
@@ -58,12 +101,12 @@ def create_vector_embedding():
                 st.session_state.embeddings = OpenAIEmbeddings(api_key = openai_key)
                 
                 # Check if directory exists
-                if not os.path.exists("research_papers") or len(os.listdir("research_papers")) == 0:
-                    st.error("Directory 'research_papers' not found. Please create this directory and add your PDF files.")
+                if not os.path.exists(SESSION_DIR) or len(os.listdir(SESSION_DIR)) == 0:
+                    st.error("No uploaded PDF files found. Please upload your PDF files first.")
                     return False
-                
+
                 # Load PDF documents from a directory
-                st.session_state.loader = PyPDFDirectoryLoader("research_papers")
+                st.session_state.loader = PyPDFDirectoryLoader(SESSION_DIR)
                 st.session_state.docs = st.session_state.loader.load()
                 
                 if not st.session_state.docs:
@@ -79,7 +122,8 @@ def create_vector_embedding():
                 return True
                 
         except Exception as e:
-            st.error(f"Error creating vector database: {str(e)}")
+            logger.exception("Error creating vector database")
+            st.error("Error creating vector database. Please check the server logs.")
             return False
     return True
 
@@ -92,17 +136,27 @@ openai_key = st.text_input("Enter your openai api key", type = 'password')
 uploaded_files = st.file_uploader("upload your research papers (PDF)", type = 'pdf', accept_multiple_files = True)
 
 if uploaded_files:
-    # Clear existing files to avoid duplicates
+    # Clear this session's existing files to avoid duplicates (other sessions
+    # are untouched since each session has its own SESSION_DIR)
     import shutil
-    if os.path.exists("research_papers"):
-        shutil.rmtree("research_papers") #remove directory
-    os.makedirs("research_papers") #make another directory
+    if os.path.exists(SESSION_DIR):
+        shutil.rmtree(SESSION_DIR) #remove directory
+    os.makedirs(SESSION_DIR) #make another directory
 
+    skipped = 0
     for file in uploaded_files:
-        # Save uploaded file to research_papers directory
-        with open(os.path.join("research_papers", file.name), "wb") as f:
+        # Sanitize the filename to prevent path traversal / writes outside SESSION_DIR
+        safe_name = safe_pdf_filename(file.name)
+        if not safe_name:
+            skipped += 1
+            continue
+        # Save uploaded file to this session's directory
+        with open(os.path.join(SESSION_DIR, safe_name), "wb") as f:
             f.write(file.getbuffer())
-    st.success(f"Uploaded {len(uploaded_files)} PDF files successfully!")
+
+    if skipped:
+        st.warning(f"Skipped {skipped} file(s) with invalid or non-PDF names.")
+    st.success(f"Uploaded {len(uploaded_files) - skipped} PDF files successfully!")
 
 # First explain what to do with clear instructions
 st.write("1. Provide your openai key")
@@ -115,7 +169,7 @@ if st.button("Document Embedding"):
     if not openai_key:
         st.error("Please provide your openai key first")
         
-    if not uploaded_files and len(os.listdir("research_papers")) == 0:
+    if not uploaded_files and (not os.path.exists(SESSION_DIR) or len(os.listdir(SESSION_DIR)) == 0):
         st.error("Please upload PDF files first before creating embeddings.")
     else:
         success = create_vector_embedding()
@@ -175,5 +229,5 @@ if user_prompt:
                         st.write("---------------------------------")
 
         except Exception as e:
-            st.error(f"Error processing your request: {str(e)}")
-            st.write("Please try again or check your API keys and document database.")
+            logger.exception("Error processing user request")
+            st.error("Error processing your request. Please try again or check your API keys and document database.")
